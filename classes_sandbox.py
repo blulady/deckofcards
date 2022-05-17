@@ -7,8 +7,6 @@ class CardDeck:
     def __init__(self, count):
         self.count = count
         response = requests.get(f"https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count={count}")
-        if response.status_code != 200:
-            raise(SyntaxError, f'Unable to access api, code: " {response.status_code}')
         self.deck = response.json()
         self.deck_id = self.deck["deck_id"]
         self.deck_remaining = self.deck["remaining"]
@@ -21,8 +19,6 @@ class CardDeck:
         returns the json for the cards you drew from the deck"""
         card_response = requests.get(f"https://deckofcardsapi.com/api/deck/{self.deck_id}/draw/?count={count}")
         self.card_json = card_response.json()
-        if card_response.status_code != 200:
-            raise(SyntaxError, f'Unable to access api, code: {card_response.status_code}')
         self.deck_remaining = self.card_json["remaining"]
         self.cards = self.card_json["cards"]
         self.card_count += count
