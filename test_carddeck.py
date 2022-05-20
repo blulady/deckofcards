@@ -19,6 +19,6 @@ def test_one_deck_remaining():
 
 def test_two_decks_remaining():
     two_decks = CardDeck(2)
-    assert two_decks.deck_remaining == 104
+    assert two_decks.deck_remaining is 104
 
 
