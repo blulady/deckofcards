@@ -13,6 +13,8 @@ class CardDeck:
         self.deck_shuffled = self.deck["shuffled"]
         self.card_count = 0
         self.card_list = []
+        self.card_json = {}
+        self.cards = []
 
     def draw_cards(self, count):
         """count is the number of cards you want to draw
