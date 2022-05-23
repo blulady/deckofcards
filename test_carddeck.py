@@ -22,3 +22,10 @@ def test_two_decks_remaining():
     assert two_decks.deck_remaining == 104
 
 
+#write tests to test the assertion error for line 8/9 in carddeck
+#write test to test str & repr output
+#write a conftest file
+#reorganize tests
+#test to see if the repr returns the correct count
+#write a test
+#create a mock to test non 200 responses
