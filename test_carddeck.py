@@ -37,8 +37,8 @@ def test_count_0_raises():
     #     assert expected == msg
     #     print(msg)
     #next 2 lines work
-    # with pytest.raises(AssertionError, match='You will need a whole integer of at least 1 for count'):
-    #     CardDeck(0)
+    with pytest.raises(AssertionError, match='You will need a whole integer of at least 1 for count'):
+        CardDeck(0)
     #the following four lines also works
     # with pytest.raises(AssertionError) as exc_info:
     #     raise CardDeck(0)
