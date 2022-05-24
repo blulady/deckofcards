@@ -55,5 +55,6 @@ class CardDeck:
     def __str__(self):
         return f'You drew {self.card_count} cards and you have {self.deck_remaining} cards remaining in your deck.'
 
+    @property
     def show_cards(self):
         return 'You drew ' + ', '.join(f"the {card[0]} of {card[1]}" for card in self.card_list)

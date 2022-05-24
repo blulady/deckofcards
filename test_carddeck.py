@@ -30,9 +30,20 @@ def test_count_word_raises():
 
 
 def test_count_0_raises():
-    match = "You will need a whole integer of at least 1 for count"
-    with pytest.raises(AssertionError, match=match):
-        CardDeck(0)
+    # with pytest.raises(AssertionError) as exc_info:
+    #     CardDeck(0)
+    #     expected = "tomato tomato "
+    #     msg = exc_info.value.args[0]
+    #     assert expected == msg
+    #     print(msg)
+    #next 2 lines work
+    # with pytest.raises(AssertionError, match='You will need a whole integer of at least 1 for count'):
+    #     CardDeck(0)
+    #the following four lines also works
+    # with pytest.raises(AssertionError) as exc_info:
+    #     raise CardDeck(0)
+    # assert exc_info.type is AssertionError
+    # assert exc_info.value.args[0] == 'You will whole integer of at least 1 for count'
 
 
 #write tests to test the assertion error for line 8/9 in carddeck
