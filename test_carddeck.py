@@ -23,12 +23,16 @@ def test_nineteen_decks(nineteen):
     assert nineteen.count == 19
 
 
-def test_count_raises():
-    with pytest.raises(AssertionError) as exc_info:
-        CardDeck(0)
-        expected = "0 is not a number, you need to enter a number for count"
-        assert expected in str(exc_info.value)
+def test_count_word_raises():
+    match_regex = ".* is not a number, you need to enter a number for count"
+    with pytest.raises(AssertionError, match=match_regex):
+        CardDeck("Word")
 
+
+def test_count_0_raises():
+    match = "You will need a whole integer of at least 1 for count"
+    with pytest.raises(AssertionError, match=match):
+        CardDeck(0)
 
 
 #write tests to test the assertion error for line 8/9 in carddeck
