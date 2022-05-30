@@ -5,17 +5,17 @@ from functools import total_ordering
 class CardDeck:
     """a class so we can check the accuracy of remaining cards in a deck
     count is the number of decks we want to pull"""
+    class API_EXCEPTION(Exception):
+        pass
 
     def __init__(self, count=1):
-        assert isinstance(count, int), f"{count} is not a number, you need to enter a number for count"
-        assert count > 0, 'You will need a whole integer of at least 1 for count'
         self.count = count
         response = requests.get(f"https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count={count}")
         if response.status_code != 200:
-            raise (SystemError, f"Unable to access api. Code: {response.status_code}")
+            raise CardDeck.API_EXCEPTION(f"Unable to access API. Code: {response.status_code}")
+        # API will return a 200 if you send too many decks so check for a success
         if not response.json()["success"]:
             raise Exception("You pulled too many decks, the number of decks you can pull is 20")
-        # write an except method
         self.deck = response.json()
         self.deck_id = self.deck["deck_id"]
         self.deck_remaining = self.deck["remaining"]
@@ -33,14 +33,12 @@ class CardDeck:
         return {self.deck_remaining} == {other.deck_remaining}
 
     def __lt__(self, other):
-        if self.deck_remaining < other.deck_remaining:
-            return {f'{self} is less than {other}'}
+        return self.deck_remaining < other.deck_remaining
 
     def draw_cards(self, count):
         """count is the number of cards you want to draw
         returns the json for the cards you drew from the deck"""
         card_response = requests.get(f"https://deckofcardsapi.com/api/deck/{self.deck_id}/draw/?count={count}")
-        # right an assert count? maybe change count name
         # try:
         #     card_response.raise_for_status()
         # except card_response.exceptions as e:
@@ -53,6 +51,7 @@ class CardDeck:
         self.card_list = [(item["value"], item["suit"].lower()) for item in self.cards]
 
     def __str__(self):
+        # corrrect grammer for single card
         return f'You drew {self.card_count} cards and you have {self.deck_remaining} cards remaining in your deck.'
 
     @property

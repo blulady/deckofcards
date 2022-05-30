@@ -1,5 +1,6 @@
 import pytest
 from classes_sandbox import CardDeck
+from unittest.mock import Mock, patch
 
 
 def test_card_deck_response(deck):
@@ -23,33 +24,37 @@ def test_nineteen_decks(nineteen):
     assert nineteen.count == 19
 
 
-def test_count_word_raises():
-    match_regex = ".* is not a number, you need to enter a number for count"
-    with pytest.raises(AssertionError, match=match_regex):
-        CardDeck("Word")
+# def test_count_word_raises():
+#     match_regex = ".* is not a number, you need to enter a number for count"
+#     with pytest.raises(AssertionError, match=match_regex):
+#         CardDeck("Word")
 
 
-def test_count_0_raises():
+#def test_count_0_raises():
     # with pytest.raises(AssertionError) as exc_info:
     #     CardDeck(0)
     #     expected = "tomato tomato "
     #     msg = exc_info.value.args[0]
     #     assert expected == msg
     #     print(msg)
-    #next 2 lines work
-    with pytest.raises(AssertionError, match='You will need a whole integer of at least 1 for count'):
-        CardDeck(0)
-    #the following four lines also works
+    # next 2 lines work
+    #with pytest.raises(AssertionError, match='You will need a whole integer of at least 1 for count'):
+        #CardDeck(0)
+    # the following four lines also works
     # with pytest.raises(AssertionError) as exc_info:
     #     raise CardDeck(0)
     # assert exc_info.type is AssertionError
     # assert exc_info.value.args[0] == 'You will whole integer of at least 1 for count'
 
 
-#write tests to test the assertion error for line 8/9 in carddeck
-#write test to test str & repr output
-#write test to
-#reorganize tests
-#test to see if the repr returns the correct count
-#write a test
-#create a mock to test non 200 responses
+def test_api_response():
+    with pytest.raises(CardDeck.API_EXCEPTION, match="Unable to access API."):
+        CardDeck("Word")
+
+# write tests to test the assertion error for line 8/9 in carddeck
+# write test to test str & repr output
+# write test to
+# reorganize tests
+# test to see if the repr returns the correct count
+# write a test
+# create a mock to test non 200 responses
